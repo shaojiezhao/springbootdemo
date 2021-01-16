@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springbootdemo.sql.mapper.PilotUserAccessMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.springbootdemo.sql.model.PilotUserAccess">
+        <id column = "CUSTOMER_ID" property="customerId" jdbcType="VARCHAR"/>
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+        <result column="USEr_tPID" property="userTpid" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        CUSTOMER_ID,USER_ID,USER_TPID,PRODUCT_NAME
+    </sql>
+
+    <select id="queryPilotUserInfoByMapper" resultMap="BaseResultMap" parameterType="java.lang.String" resultType="com.example.springbootdemo.sql.model.PilotUserAccess">
+        select <include refid="Base_Column_List"/> from PILOT_USER_ACCESS where CUSTOMER_ID = #{customerId}
+    </select>
+
+
+</mapper>
+
+
+<!--<mapper namespace="ddd">-->
+<!--</mapper>-->
