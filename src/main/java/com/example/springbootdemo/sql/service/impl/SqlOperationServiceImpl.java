@@ -9,10 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.*;
 
 @Service
 public class SqlOperationServiceImpl implements SqlOperationService
 {
+    private static final ExecutorService threadPool = Executors.newCachedThreadPool();
+
     @Autowired
     private PilotUserAccessMapper pilotUserAccessMapper;
 
@@ -40,7 +43,24 @@ public class SqlOperationServiceImpl implements SqlOperationService
     @Override
     public ResponseEntity<PilotUserAccess> queryPilotUserInfoByMapper(String customerId)
     {
+        Future<String> future = getDataWithFuture();
+
+        System.out.println("before get()");
+
         PilotUserAccess pilotUserAccess = pilotUserAccessMapper.queryPilotUserInfoByMapper(customerId);
+
+        String getData = null;
+        try {
+            getData = future.get(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        System.out.println(getData);
+
         return ResponseEntity.ok(pilotUserAccess);
     }
 
@@ -48,6 +68,31 @@ public class SqlOperationServiceImpl implements SqlOperationService
     public List<PilotUserAccess> queryAllCustomerInfo()
     {
         return (List)customerRepository.findAll();
+    }
+
+
+    private Future<String> getDataWithFuture()
+    {
+        Callable<String> callable = new Callable<String>()
+        {
+            @Override
+            public String call() throws Exception
+            {
+                return getData();
+            }
+        };
+
+        return threadPool.submit(callable);
+    }
+
+    private String getData()
+    {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "getData() method";
     }
 
 }

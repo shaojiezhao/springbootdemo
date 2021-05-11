@@ -1,0 +1,44 @@
+server:
+  port : 8086
+  servlet :
+      context-path: /api
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    #    url: jdbc:h2:~/jack  ---h2 url
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      connectionTestQuery: SELECT 1 FROM DUAL
+      connectionTimeout: 30000
+      maximumIdle : 2
+      idleTimeout : 600000
+      maxLifetime : 1800000
+  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect ---h2 dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: false
+    show-sql: true
+    format_sql: true
+    hibernate:
+      ddl-auto: none
+  mail :
+    host : ${EMAIL_HOST}
+    port : ${EMAIL_PORT}
+    username : ${EMAIL_USERNAME}
+    password : ${EMAIL_PASSWORD}
+    from: 466711305@qq.com
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp :
+          ssl:
+            enable: true
+          socketFactoryClass : javax.net.ssl.SSLSocketFactory
+        debug : true
+
+
+mybatis:
+  mapper-locations: classpath:Mapper/*.xml
