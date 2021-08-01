@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 自定义的String类
+ */
+import com.hsbc.trade.sendemailreport.vo.String;
+
+
 @RestController
 @RequestMapping("/email")
 public class SendEmailController
@@ -19,6 +25,10 @@ public class SendEmailController
     @PostMapping("/sendEmail")
     public void sendEmail(@RequestBody EmailReportRequestVo reportRequestVo)
     {
+        //自定义的String类也可以使用
+        String string = new String();
+        string.prt();
         emailReportService.sendEmailReport(reportRequestVo);
+
     }
 }

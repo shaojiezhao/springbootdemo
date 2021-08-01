@@ -32,6 +32,7 @@ public class EmailReportServiceImpl implements EmailReportService
     @Override
     public void sendEmailReport(EmailReportRequestVo requestVo)
     {
+        //自定义了一个String类，所以此处爆红，但是不影响程序
         String recipientName = requestVo.getRecipientName();
 
         List<Recipient> recipientList = recipientRepository.findByRecipientName(recipientName);
