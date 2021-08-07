@@ -2,7 +2,6 @@ package com.hsbc.trade.sendemailreport.controller;
 
 import com.hsbc.trade.sendemailreport.service.EmailReportService;
 import com.hsbc.trade.sendemailreport.vo.EmailReportRequestVo;
-import com.hsbc.trade.sendemailreport.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +24,7 @@ public class SendEmailController
     @PostMapping("/sendEmail")
     public void sendEmail(@RequestBody EmailReportRequestVo reportRequestVo)
     {
-        //自定义的String类也可以使用
-        String string = new String();
-        string.prt();
+        new String().prt();
         emailReportService.sendEmailReport(reportRequestVo);
 
     }

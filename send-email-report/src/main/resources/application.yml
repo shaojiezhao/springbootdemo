@@ -7,9 +7,9 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     #    url: jdbc:h2:~/jack  ---h2 url
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/my_schema?characterEncoding=utf8&serverTimezone=UTC}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:yan138359}
     hikari:
       connectionTestQuery: SELECT 1 FROM DUAL
       connectionTimeout: 30000
@@ -25,10 +25,10 @@ spring:
     hibernate:
       ddl-auto: none
   mail :
-    host : ${EMAIL_HOST}
-    port : ${EMAIL_PORT}
-    username : ${EMAIL_USERNAME}
-    password : ${EMAIL_PASSWORD}
+    host : ${EMAIL_HOST:smtp.qq.com}
+    port : ${EMAIL_PORT:465}
+    username : ${EMAIL_USERNAME:466711305@qq.com}
+    password : ${EMAIL_PASSWORD:tdbgxeixpdshbicd}
     from: 466711305@qq.com
     default-encoding: utf-8
     properties:
